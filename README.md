@@ -21,15 +21,16 @@ scripts
 ```
 
 ### Edit Mode Helpers
-##### ApplyMeshOperatorToSelection
+#### ApplyMeshOperatorToSelection
 
 This script allows the user to automatically execute a desired mesh operator to selected vertices,
 edges or faces. The script is generic. Therefore the desired operator and its parameters can be
 configured by the user. For available mesh operators and their respective parameters use the python
-console in blender or refer to:
+console help in blender or refer to:
     
     https://docs.blender.org/api/current/bpy.ops.mesh.html
-    
+
+```    
 USAGE:
     1. Set the three variables in the config section:
         SELECTION_TYPE : "verts", "edges", "faces"   - type of mesh that operator shall be applied on
@@ -39,7 +40,10 @@ USAGE:
                      
     2. Switch to edit mode and select parts of the mesh that the mesh operator should apply on
     3. Run script
-"""
+    
+HINT:
+    Example configurations for extrude and inset of faces can be found in the scripts CONFIG section
+```
 
 ### Contribute
 If you find any errors or room for improvement, feel free to tweak, adjust, improve and please consider opening a merge request or issue.
