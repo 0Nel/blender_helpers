@@ -1,8 +1,8 @@
-"""Apply Mesh Operation to Selection
+"""Apply Mesh Operator to Selection
 
-This script allows the user to automatically execute a desired mesh operation to selected vertices,
-edges or faces. The script is generic. Therefore the desired operation and its parameters can be
-configured by the user. For available mesh operations and their respective parameters refer to:
+This script allows the user to automatically execute a desired mesh operator to selected vertices,
+edges or faces. The script is generic. Therefore the desired operator and its parameters can be
+configured by the user. For available mesh operators and their respective parameters refer to:
     
     https://docs.blender.org/api/current/bpy.ops.mesh.html
 
@@ -12,12 +12,12 @@ take responsibility for potential errors or unforseen effects on your project.
 
 USAGE:
     1. Set the three variables in the config section:
-        SELECTION_TYPE : "verts", "edges", "faces"   - type of mesh that operation shall be applied on
-        ACTION         : mesh operation that is supposed to be applied to selection
-        DICT           : dictionary that allows specifying desired parameters,
-                         which will be passed to the mesh operation
+        SELECTION_TYPE : "verts", "edges", "faces"   - type of mesh that operator shall be applied on
+        ACTION         : mesh operator that is supposed to be applied to selection
+        PARAMS           : dictionary that allows specifying desired parameters,
+                         which will be passed to the mesh operator
                      
-    2. Switch to edit mode and select parts of the mesh that the mesh operation should apply on
+    2. Switch to edit mode and select parts of the mesh that the mesh operator should apply on
     3. Run script
 """
 
@@ -27,16 +27,22 @@ import bmesh
 ##################################################################################################
 #                                                                               CONFIG SECTION  ##
 ##################################################################################################
+# EXAMPLE: for inset with 0.05 thickness
 SELECTION_TYPE="faces"        # must be verts, edges or faces
 ACTION = bpy.ops.mesh.inset   # refer to https://docs.blender.org/api/current/bpy.ops.mesh.html
-DICT = { "thickness" : 0.01 } 
+PARAMS = { "thickness" : 0.05 } 
+
+# EXAMPLE2: extrude of 0.5 in z-direction
+#ACTION = bpy.ops.mesh.extrude_region_move
+#translate = { "value" : (0,0,0.5) }
+#PARAMS = { "TRANSFORM_OT_translate" : translate }
 
 ##################################################################################################
 #                                                                             CLASS DEFINITION  ##
 ##################################################################################################
-class ApplyMeshOperationToSelection():
+class ApplyMeshOperatorToSelection():
     """
-    A class that auto executes a passed mesh operation on selected vertices, edges or faces
+    A class that auto executes a passed mesh operator on selected vertices, edges or faces
     ...
 
     Methods
@@ -53,7 +59,7 @@ class ApplyMeshOperationToSelection():
         action : bpy.ops.mesh
             mesh operator function that should be executed on selection
         param_dict : dict
-            dictionary with parameter that will be passed to mesh operation
+            dictionary with parameter that will be passed to mesh operator
         verbose : bool, optional
             increase verbosity of console output
         """
@@ -77,7 +83,7 @@ class ApplyMeshOperationToSelection():
         if not callable(self.action_):
             raise TypeError("The passed action is not callable." + hint)
         if not self.action_.idname_py().split('.')[0] == "mesh":
-            raise TypeError("The passed action object is not a mesh operation" + hint)
+            raise TypeError("The passed action object is not a mesh operator" + hint)
 
     def __read_selection(self):
         bpy.ops.object.mode_set(mode="OBJECT")
@@ -124,5 +130,5 @@ class ApplyMeshOperationToSelection():
 ##################################################################################################
 #                                                                                         MAIN  ##
 ##################################################################################################
-executor = ApplyMeshOperationToSelection(SELECTION_TYPE, ACTION, DICT, True)
+executor = ApplyMeshOperatorToSelection(SELECTION_TYPE, ACTION, PARAMS, True)
 executor.run()

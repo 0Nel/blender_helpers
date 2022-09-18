@@ -34,7 +34,7 @@ USAGE:
     1. Set the three variables in the config section:
         SELECTION_TYPE : "verts", "edges", "faces"   - type of mesh that operator shall be applied on
         ACTION         : mesh operator that is supposed to be applied to selection
-        DICT           : dictionary that allows specifying desired parameters,
+        PARAMS         : dictionary that allows specifying desired parameters,
                          which will be passed to the mesh operator
                      
     2. Switch to edit mode and select parts of the mesh that the mesh operator should apply on
