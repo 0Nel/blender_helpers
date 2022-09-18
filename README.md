@@ -25,7 +25,8 @@ scripts
 
 This script allows the user to automatically execute a desired mesh operator to selected vertices,
 edges or faces. The script is generic. Therefore the desired operator and its parameters can be
-configured by the user. For available mesh operators and their respective parameters refer to:
+configured by the user. For available mesh operators and their respective parameters use the python
+console in blender or refer to:
     
     https://docs.blender.org/api/current/bpy.ops.mesh.html
     
